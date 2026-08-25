@@ -1,0 +1,23 @@
+name: Pipeline do Sistema de Notas
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  teste-e-validacao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar ambiente Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências de QA
+        run: pip install -r requirements.txt
+
+      - name: Executar bateria de testes
+        run: pytest
